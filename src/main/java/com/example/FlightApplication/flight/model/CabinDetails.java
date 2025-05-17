@@ -12,8 +12,10 @@ import lombok.Data;
 @Data
 public class CabinDetails {
 
-
+    @Column(name = "cabin_class")
+    @Enumerated(EnumType.STRING)
     private CabinClass cabinClass;
+
     private String baggage;
     private String cancellation;
     private String rebooking;

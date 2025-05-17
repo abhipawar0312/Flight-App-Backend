@@ -1,6 +1,8 @@
 package com.example.FlightApplication.flight.model;
 
 import com.example.FlightApplication.flight.enumerations.CompanyName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,11 +16,12 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int companyId;
 
-
+    @JsonManagedReference
     @Column(name = "company_name")
     @Enumerated(EnumType.STRING)
     private CompanyName companyName;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     private Set<Flight> flights;
 

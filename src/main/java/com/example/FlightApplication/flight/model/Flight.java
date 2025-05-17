@@ -2,6 +2,7 @@ package com.example.FlightApplication.flight.model;
 
 import com.example.FlightApplication.flight.enumerations.FlightType;
 import com.example.FlightApplication.flight.enumerations.TravelType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class Flight {
     @Version
     private int version;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company  company;

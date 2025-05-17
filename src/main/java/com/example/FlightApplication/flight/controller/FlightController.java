@@ -1,13 +1,16 @@
 package com.example.FlightApplication.flight.controller;
 
 import com.example.FlightApplication.flight.model.Flight;
-import com.example.FlightApplication.flight.repository.FlightRepository;
+import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.service.FlightService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("flight-webservice/api/z1.o/flights")
@@ -22,4 +25,26 @@ public class FlightController {
        return new   ResponseEntity<Flight> (addedFlight, new HttpHeaders(), HttpStatus.OK);
 
    }
+
+    @GetMapping("/getAllFlight")
+    ResponseEntity<List<Flight>> getAllFlight(){
+       List<Flight> allFlightList =flightService.getAllFlights();
+       return new  ResponseEntity<List<Flight>>(allFlightList,new HttpHeaders(), HttpStatus.OK);}
+
+
+    //@GetMapping("/getAllFlights")
+    //ResponseEntity<List<FlightDto>> getAllFlight(){
+        //List<Flight> allFlightList =flightService.getAllFlights();
+
+        //return new  ResponseEntity<List<FlightDto>>(allFlightList,new HttpHeaders(), HttpStatus.OK);}
+
+
+    @PostMapping("/search")
+    ResponseEntity<List<Flight>> searchFlights(@RequestBody FlightCriteria flightCriteria){
+        List<Flight> allFlightList =flightService.searchFlight(flightCriteria).stream().toList();
+
+        return new  ResponseEntity<List<Flight>>(allFlightList,new HttpHeaders(), HttpStatus.OK);
+   }
+
 }
+
