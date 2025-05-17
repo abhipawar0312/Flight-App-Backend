@@ -13,8 +13,10 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int companyId;
-    @Column(name = "company_name")
 
+
+    @Column(name = "company_name")
+    @Enumerated(EnumType.STRING)
     private CompanyName companyName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")

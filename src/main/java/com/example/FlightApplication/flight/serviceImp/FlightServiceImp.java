@@ -5,6 +5,9 @@ import com.example.FlightApplication.flight.repository.FlightRepository;
 import com.example.FlightApplication.flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Service
 public class FlightServiceImp implements FlightService {
@@ -16,4 +19,9 @@ public class FlightServiceImp implements FlightService {
         return flightRepository.save(flight);
 
     }
+
+
+
+
+
 }

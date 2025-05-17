@@ -12,21 +12,27 @@ import java.time.LocalTime;
 
 @Entity
 @Data
+
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idFlight;
 
+    @Version
+    private int version;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company  company;
 
-    @Column(name = "flight_type")
 
+    @Column(name = "flight_type")
+    @Enumerated(EnumType.STRING)
     private FlightType flightType;
 
-    @Column(name = "travel_type")
 
+    @Column(name = "travel_type")
+    @Enumerated(EnumType.STRING)
     private TravelType travelType;
 
     @Column(name = "departure_date")
