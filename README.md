@@ -28,19 +28,8 @@ This is a Spring Boot-based backend service for managing flight-related data suc
 
 ---
 
-## 📁 Project Structure
-src/
-├── main/
-│ ├── java/
-│ │ └── com.example.FlightApplication/
-│ │ ├── controller/
-│ │ ├── model/
-│ │ ├── repository/
-│ │ ├── service/
-│ │ ├── enums/
-│ │ └── FlightApplication.java
-│ └── resources/
-│ ├── application.properties
+
+
 
 ## 🛠️ Setup Instructions
 
