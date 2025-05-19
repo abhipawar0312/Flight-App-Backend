@@ -2,8 +2,6 @@ package com.example.FlightApplication.flight.repository;
 
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

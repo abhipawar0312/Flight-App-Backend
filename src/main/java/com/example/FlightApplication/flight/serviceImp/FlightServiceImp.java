@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlightServiceImp implements FlightService {
@@ -32,6 +33,12 @@ public class FlightServiceImp implements FlightService {
     @Override
     public List<Flight> searchFlight(FlightCriteria flightCriteria) {
         return flightRepository.searchFlights(flightCriteria);
+    }
+
+    @Override
+    public Optional<Flight> getFlight(Long idFlight) {
+        Optional<Flight> flights =flightRepository.findById(idFlight);
+        return  flightRepository.findById(idFlight);
     }
 
 
