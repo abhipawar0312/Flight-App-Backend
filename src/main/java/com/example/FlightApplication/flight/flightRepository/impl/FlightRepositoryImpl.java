@@ -42,6 +42,9 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         if (flightCriteria.getTravelType() != null) {
             predicates.add(cb.equal(flight.get("travelType"), flightCriteria.getTravelType()));
         }
+        if(flightCriteria.getDepartureLocation() != null){
+            predicates.add(cb.like(flight.get("departureLocation"),"%" + flightCriteria.getDepartureLocation() + "%"));
+        }
 
         query.where(predicates.toArray(new Predicate[0]));
         return entityManager.createQuery(query).getResultList();
