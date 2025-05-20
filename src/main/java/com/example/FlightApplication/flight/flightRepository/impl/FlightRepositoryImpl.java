@@ -45,6 +45,61 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         if(flightCriteria.getDepartureLocation() != null){
             predicates.add(cb.like(flight.get("departureLocation"),"%" + flightCriteria.getDepartureLocation() + "%"));
         }
+        if(flightCriteria.getArrivalLocation() != null){
+            predicates.add(cb.like(flight.get("arrivalLocation") , "%" + flightCriteria.getArrivalLocation()+ "%"));
+        }
+        if(flightCriteria.getFlightType() != null){
+            predicates.add(cb.like(flight.get("aircraftType"), "%" + flightCriteria.getFlightType() + "%"));
+        }
+
+        if(flightCriteria.getArrivalDateMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate") , flightCriteria.getDepartureDateMax()));
+        }
+        if(flightCriteria.getArrivalDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureDate"), flightCriteria.getArrivalDateMin()));
+        }
+        if(flightCriteria.getArrivalDateMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("arrivalDate") , flightCriteria.getArrivalDateMax()));
+        }
+        if(flightCriteria.getArrivalDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("arrivalDate"), flightCriteria.getArrivalDateMin()));
+        }
+        if (flightCriteria.getDepartureTimeMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("departureTime"), flightCriteria.getDepartureTimeMax()));
+        }
+        if (flightCriteria.getDepartureTimeMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureTime"), flightCriteria.getDepartureTimeMin()));
+        }
+        if(flightCriteria.getArrivalTimeMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("arrivalTime"), flightCriteria.getArrivalTimeMax()));
+        }
+        if (flightCriteria.getArrivalTimeMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("arrivalTime"), flightCriteria.getArrivalTimeMin()));
+        }
+        if (flightCriteria.getBackDateMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("backDate"),flightCriteria.getBackDateMax()));
+        }
+        if (flightCriteria.getBackDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("backDate"), flightCriteria.getBackDateMin()));
+        }
+        if(flightCriteria.getBackTimeMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("backTime"),flightCriteria.getBackTimeMax()));
+        }
+        if(flightCriteria.getBackTimeMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("backTime"),flightCriteria.getBackTimeMin()));
+        }
+        if(flightCriteria.getConnectionDurationMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("connectionDuration"),flightCriteria.getConnectionDurationMax()));
+        }
+        if (flightCriteria.getConnectionDurationMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("connectionDuration"),flightCriteria.getConnectionDurationMin()));
+        }
+        if (flightCriteria.getFlightDurationMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("flightDuration"), flightCriteria.getFlightDurationMax()));
+        }
+        if(flightCriteria.getFlightDurationMin() != null ){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("flightDuration"),flightCriteria.getFlightDurationMin()));
+        }
 
         query.where(predicates.toArray(new Predicate[0]));
         return entityManager.createQuery(query).getResultList();
