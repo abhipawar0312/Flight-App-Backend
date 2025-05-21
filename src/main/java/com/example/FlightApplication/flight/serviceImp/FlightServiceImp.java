@@ -2,6 +2,7 @@ package com.example.FlightApplication.flight.serviceImp;
 
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
+import com.example.FlightApplication.flight.model.SynthesisCriteria;
 import com.example.FlightApplication.flight.repository.FlightRepository;
 import com.example.FlightApplication.flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class FlightServiceImp implements FlightService {
     public Optional<Flight> getFlight(Long idFlight) {
         Optional<Flight> flights =flightRepository.findById(idFlight);
         return  flightRepository.findById(idFlight);
+    }
+
+    @Override
+    public Long getNumberFlight(SynthesisCriteria synthesisCriteria) {
+        return flightRepository.getNumberFlight(synthesisCriteria );
     }
 
 

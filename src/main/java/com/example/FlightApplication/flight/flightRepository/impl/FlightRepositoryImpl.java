@@ -3,6 +3,7 @@ package com.example.FlightApplication.flight.flightRepository.impl;
 
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
+import com.example.FlightApplication.flight.model.SynthesisCriteria;
 import com.example.FlightApplication.flight.repository.FlightRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -52,11 +53,11 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
             predicates.add(cb.like(flight.get("aircraftType"), "%" + flightCriteria.getFlightType() + "%"));
         }
 
-        if(flightCriteria.getArrivalDateMax() != null){
+        if(flightCriteria.getDepartureDateMax() != null){
             predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate") , flightCriteria.getDepartureDateMax()));
         }
-        if(flightCriteria.getArrivalDateMin() != null){
-            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureDate"), flightCriteria.getArrivalDateMin()));
+        if(flightCriteria.getDepartureDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureDate"), flightCriteria.getDepartureDateMin()));
         }
         if(flightCriteria.getArrivalDateMax() != null){
             predicates.add(cb.lessThanOrEqualTo(flight.get("arrivalDate") , flightCriteria.getArrivalDateMax()));
@@ -103,5 +104,25 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
 
         query.where(predicates.toArray(new Predicate[0]));
         return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public Long getNumberFlight(SynthesisCriteria synthesisCriteria) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        Root<Flight> flight = query.from(Flight.class);
+        query.select(cb.count(flight));
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(SynthesisCriteria.getDepartureDateMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate") , SynthesisCriteria.getDepartureDateMax()));
+        }
+        if(SynthesisCriteria.getDepartureDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureDate"), SynthesisCriteria.getDepartureDateMin()));
+        }
+        query.where(predicates.toArray(new Predicate[0]));
+
+        return entityManager.createQuery(query).getSingleResult();
     }
 }

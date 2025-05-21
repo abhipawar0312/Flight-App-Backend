@@ -2,6 +2,7 @@ package com.example.FlightApplication.flight.controller;
 
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
+import com.example.FlightApplication.flight.model.SynthesisCriteria;
 import com.example.FlightApplication.flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +44,12 @@ public class FlightController {
     public ResponseEntity<Optional<Flight>> getFlightById(@PathVariable("id") Long idFlight) {
         Optional<Flight> flight = flightService.getFlight(idFlight);
         return ResponseEntity.ok(flight);
+    }
+
+    @GetMapping("/numberOfFlight")
+    public ResponseEntity<Long> getNumberOfFlight(@RequestBody SynthesisCriteria synthesisCriteria){
+       Long nbFlight = flightService.getNumberFlight(synthesisCriteria);
+       return new ResponseEntity<Long>(nbFlight,new HttpHeaders(), HttpStatus.OK);
     }
 }
 

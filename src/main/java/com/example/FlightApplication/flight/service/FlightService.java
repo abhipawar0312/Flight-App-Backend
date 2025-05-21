@@ -2,6 +2,7 @@ package com.example.FlightApplication.flight.service;
 
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
+import com.example.FlightApplication.flight.model.SynthesisCriteria;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,5 +18,6 @@ public interface FlightService {
 
    Optional<Flight> getFlight(Long idFlight);
 
+   Long getNumberFlight(SynthesisCriteria synthesisCriteria);
 
 }
