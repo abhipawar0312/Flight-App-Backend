@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 @Data
 public class SynthesisCriteria {
-    private LocalDate departureDateMin;
-    private LocalDate departureDateMax;
+    private static LocalDate departureDateMin;
+    private static LocalDate departureDateMax;
 
     public static LocalDate getDepartureDateMin() {
         return departureDateMin;
