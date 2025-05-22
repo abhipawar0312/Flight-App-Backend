@@ -1,5 +1,6 @@
 package com.example.FlightApplication.flight.serviceImp;
 
+import com.example.FlightApplication.flight.dto.SyntheseCompanyDto;
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.model.SynthesisCriteria;
@@ -45,6 +46,11 @@ public class FlightServiceImp implements FlightService {
     @Override
     public Long getNumberFlight(SynthesisCriteria synthesisCriteria) {
         return flightRepository.getNumberFlight(synthesisCriteria );
+    }
+
+    @Override
+    public List<SyntheseCompanyDto> getNbsFlightByCompany(SynthesisCriteria synthesisCriteria) {
+        return flightRepository.getNbsFlightByCompany(synthesisCriteria);
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.FlightApplication.flight.repository;
 
+import com.example.FlightApplication.flight.dto.SyntheseCompanyDto;
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.model.SynthesisCriteria;
@@ -12,4 +13,6 @@ public interface FlightRepositoryCustom {
 
     List<Flight> searchFlights(FlightCriteria flightCriteria);
     Long getNumberFlight(SynthesisCriteria synthesisCriteria);
+    List<SyntheseCompanyDto> getNbsFlightByCompany(SynthesisCriteria synthesisCriteria);
+
 }

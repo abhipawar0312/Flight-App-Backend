@@ -1,5 +1,6 @@
 package com.example.FlightApplication.flight.controller;
 
+import com.example.FlightApplication.flight.dto.SyntheseCompanyDto;
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.model.SynthesisCriteria;
@@ -50,6 +51,13 @@ public class FlightController {
     public ResponseEntity<Long> getNumberOfFlight(@RequestBody SynthesisCriteria synthesisCriteria){
        Long nbFlight = flightService.getNumberFlight(synthesisCriteria);
        return new ResponseEntity<Long>(nbFlight,new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/synthesecompany")
+    ResponseEntity<List<SyntheseCompanyDto>> getNbsFlightByCompany(@RequestBody SynthesisCriteria synthesisCriteria){
+       List<SyntheseCompanyDto> syntheseCompanyDtos = flightService.getNbsFlightByCompany(synthesisCriteria);
+       return  new ResponseEntity<List<SyntheseCompanyDto>>(syntheseCompanyDtos , new HttpHeaders(),HttpStatus.OK);
+
     }
 }
 

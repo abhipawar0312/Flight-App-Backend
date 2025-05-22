@@ -1,15 +1,14 @@
 package com.example.FlightApplication.flight.flightRepository.impl;
 
 
+import com.example.FlightApplication.flight.dto.SyntheseCompanyDto;
+import com.example.FlightApplication.flight.enumerations.CompanyName;
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.model.SynthesisCriteria;
 import com.example.FlightApplication.flight.repository.FlightRepositoryCustom;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -124,5 +123,28 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         query.where(predicates.toArray(new Predicate[0]));
 
         return entityManager.createQuery(query).getSingleResult();
+    }
+
+    @Override
+    public List<SyntheseCompanyDto> getNbsFlightByCompany(SynthesisCriteria synthesisCriteria) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<SyntheseCompanyDto> query = cb.createQuery(SyntheseCompanyDto.class);
+        Root<Flight> flight = query.from(Flight.class);
+        Expression<CompanyName> groupByExp= flight.get("company").get("companyName").as(CompanyName.class);
+        Expression<Long> countExp = cb.count(groupByExp);
+        query.multiselect(groupByExp,countExp);
+        query.groupBy(groupByExp);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(SynthesisCriteria.getDepartureDateMax() != null){
+            predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate") , SynthesisCriteria.getDepartureDateMax()));
+        }
+        if(SynthesisCriteria.getDepartureDateMin() != null){
+            predicates.add(cb.greaterThanOrEqualTo(flight.get("departureDate"), SynthesisCriteria.getDepartureDateMin()));
+        }
+        query.where(predicates.toArray(new Predicate[0]));
+
+
+        return entityManager.createQuery(query).getResultList();
     }
 }
