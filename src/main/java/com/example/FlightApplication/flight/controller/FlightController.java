@@ -1,9 +1,12 @@
 package com.example.FlightApplication.flight.controller;
 
+import com.example.FlightApplication.flight.dto.AccountDto;
 import com.example.FlightApplication.flight.dto.SyntheseCompanyDto;
+import com.example.FlightApplication.flight.model.Account;
 import com.example.FlightApplication.flight.model.Flight;
 import com.example.FlightApplication.flight.model.FlightCriteria;
 import com.example.FlightApplication.flight.model.SynthesisCriteria;
+import com.example.FlightApplication.flight.service.AccountService;
 import com.example.FlightApplication.flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +22,9 @@ import java.util.Optional;
 public class FlightController {
    @Autowired
     FlightService flightService;
+
+   @Autowired
+    AccountService accountService;
 
    @PostMapping("/addflight")
     public ResponseEntity<Flight>  addFlight(@RequestBody Flight flight){
@@ -59,5 +65,13 @@ public class FlightController {
        return  new ResponseEntity<List<SyntheseCompanyDto>>(syntheseCompanyDtos , new HttpHeaders(),HttpStatus.OK);
 
     }
+    @PostMapping("/register")
+    public ResponseEntity<Account> addAccount(@RequestBody AccountDto accountDto){
+
+       Account account = accountService.addAccount(accountDto);
+       return new ResponseEntity<Account>(account,new HttpHeaders(), HttpStatus.OK);
+
+    }
+
 }
 
